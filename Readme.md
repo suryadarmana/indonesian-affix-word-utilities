@@ -11,7 +11,7 @@ This utilities are part of the text-parser module for SIBI Gestures Generation
 
 Currently this utilities only capable of adding one prefix and one suffix to a root-word.
 The final goal of this utilities is to add multiple prefixes (max. 3) and multiple suffixes (max. 3)
-as cited from Cited from [(Adriani et.al., 2007)](https://www.researchgate.net/profile/Jelita_Asian/publication/220316701_Stemming_Indonesian_A_confix-stripping_approach/links/5badcaff299bf13e6051ef4b/Stemming-Indonesian-A-confix-stripping-approach.pdf) below:
+as cited from [(Adriani et.al., 2007)](https://www.researchgate.net/profile/Jelita_Asian/publication/220316701_Stemming_Indonesian_A_confix-stripping_approach/links/5badcaff299bf13e6051ef4b/Stemming-Indonesian-A-confix-stripping-approach.pdf) below:
 ```
 [[[DP+]DP+]DP+] Root-Word [[+DS][+PP][+P]]
 ```

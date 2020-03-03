@@ -1,13 +1,21 @@
 # Indonesian Affixes - Word Utilities
 
-English:
 Collections of method for transforming a root word into an affix-word in Bahasa Indonesia.
+I created this utilities to help me in a process of building SIBI (Sign System for Bahasa Indonesia) Translation Apps to Translate from Text to SIBI Gestures Animation, which currently in the works at Faculty of Computer Science Universitas Indonesia.
 
-Indonesia:
-Kumpulan metode untuk transformasi kata dasar menjadi kata berimbuhan dalam Bahasa Indonesia
+
+This utilities are part of the text-parser module for SIBI Gestures Generation
 
 ## Status
-Incomplete [ON-GOING]
+**Incomplete [ON-GOING]**
+
+Currently this utilities only capable of adding one prefix and one suffix to a root-word.
+The final goal of this utilities is to add multiple prefixes (max. 3) and multiple suffixes (max. 3)
+as cited from Cited from [(Adriani et.al., 2007)](https://www.researchgate.net/profile/Jelita_Asian/publication/220316701_Stemming_Indonesian_A_confix-stripping_approach/links/5badcaff299bf13e6051ef4b/Stemming-Indonesian-A-confix-stripping-approach.pdf) below:
+```
+[[[DP+]DP+]DP+] Root-Word [[+DS][+PP][+P]]
+```
+
 Contributors are open :)
 
 ## Prequisites

@@ -8,6 +8,7 @@ Kumpulan metode untuk transformasi kata dasar menjadi kata berimbuhan dalam Baha
 
 ## Status
 Incomplete [ON-GOING]
+Contributors are open :)
 
 ## Prequisites
 ```

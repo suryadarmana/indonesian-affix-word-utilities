@@ -50,8 +50,8 @@ namespace AffixWordUtilities {
             if (prefix == "me" && root.Length <= 3) {
                 prefix = prefix + "nge";
             } else if (prefix == "me" && root[0] == 's') {
+                prefix = prefix + "ny";
                 root = root.Remove(0, 1);
-                root = "ny" + root;
             } else if (prefix == "me" && (root[0] == 'b' || root[0] == 'p') ) {
                 prefix = prefix + "m";
                 if (root[0] == 'p')
@@ -66,6 +66,21 @@ namespace AffixWordUtilities {
                     root = root.Remove(0, 1);
             }
 
+            // Rules 2 = pe(N)-
+            else if (prefix == "pe" && root[0] == 's') {
+                prefix = prefix + "ny";
+                root = root.Remove(0, 1);
+            } else if (prefix == "pe" && root[0] == 'k') {
+                prefix = prefix + "ng";
+                if (root[0] == 'k' && root[1] != 'h')
+                    root = root.Remove(0, 1);
+            } else if (prefix == "pe" && root[0] == 't') {
+                prefix = prefix + "n";
+                root = root.Remove(0, 1);
+            } else if (prefix == "pe" && root[0] == 'p') {
+                prefix = prefix + "m";
+                root = root.Remove(0, 1);
+            }
             //TODO: ADD THE OTHER RULES FOR PREFIX
 
             string result = prefix + root;

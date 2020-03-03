@@ -7,7 +7,7 @@ Indonesia:
 Kumpulan metode untuk transformasi kata dasar menjadi kata berimbuhan dalam Bahasa Indonesia
 
 ## Status
-Uncomplete [ON-GOING]
+Incomplete [ON-GOING]
 
 ## Prequisites
 ```

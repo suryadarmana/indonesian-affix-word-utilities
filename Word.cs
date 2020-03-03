@@ -141,6 +141,10 @@ namespace AffixWordUtilities {
         ///     <param name="prefix">awalan yang ingin ditambahkan</param>
         ///     <param name="root">kata dasar</param>
         ///     <param name="sufix">akhiran yang ingin ditambahkan</param>
+        ///     
+        ///     Disallowed Prefix - Suffix Combination
+        ///     be-i, di-an, ke-i, ke-kan, me-an, se-i, se-kan, te-an
+        ///
         /// </summary>
         /// <returns>
         ///     kata yang telah ditambahkan akhiran
@@ -149,7 +153,19 @@ namespace AffixWordUtilities {
         ///     "nama" + "kan" = "namakan"
         /// </example>
         public static string CombineAwalanAkhiran(string prefix, string root, string sufix) {
-            string result = CombineAwalan(prefix, root) + sufix;
+            string result = "";
+            if ((prefix == "ber" && sufix == "i") ||
+                (prefix == "di" && sufix == "an") ||
+                (prefix == "ke" && sufix == "i") ||
+                (prefix == "ke" && sufix == "kan") ||
+                (prefix == "me" && sufix == "an") ||
+                (prefix == "se" && sufix == "i") || 
+                (prefix == "se" && sufix == "kan") ||
+                (prefix == "ter" && sufix == "an")) {
+                result = "disallowed combinations!";
+            } else {
+                result = CombineAwalan(prefix, root) + sufix;
+            }
             return result;
         }
     }

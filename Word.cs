@@ -9,6 +9,8 @@ namespace AffixWordUtilities {
         private static string[] sufix = {"an", "i", "kan", "lah", "wan", "wati"};
         private static string[] partikel = {"kah", "lah", "pun"};
         private static string[] kepunyaan = {"ku", "mu", "nya"};
+
+        private const string DISALLOWED_COMBINATION = "disallowed combination!";
         
         /// <summary>
         ///     Menghasilkan daftar seluruh kombinasi imbuhan dari sebuah kata dasar
@@ -31,9 +33,13 @@ namespace AffixWordUtilities {
             for (int i = 0; i < prefix.Length; i++) {
                 for (int j = 0; j < sufix.Length; j++) {
                     string tempComb = CombineAwalanAkhiran(prefix[i], root, sufix[j]);
-                    combined.Add( tempComb );
-                    for (int k = 0; k < partikel.Length; k++) {
-                        combined.Add( CombineAkhiran(partikel[k], tempComb) );
+                    if (tempComb != DISALLOWED_COMBINATION) {
+                        combined.Add( tempComb );
+                        /*
+                        for (int k = 0; k < partikel.Length; k++) {
+                            combined.Add( CombineAkhiran(partikel[k], tempComb) );
+                        }
+                        */
                     }
                 }
             }
@@ -109,6 +115,12 @@ namespace AffixWordUtilities {
                 prefix = "bel";
             }
             #endregion
+
+            #region Rules 4 = ter
+            else if (prefix == "ter" && root[0] == 'r') {
+                prefix = "te";
+            }
+            #endregion
             
             //TODO: ADD THE OTHER RULES FOR PREFIX
 
@@ -162,7 +174,7 @@ namespace AffixWordUtilities {
                 (prefix == "se" && sufix == "i") || 
                 (prefix == "se" && sufix == "kan") ||
                 (prefix == "ter" && sufix == "an")) {
-                result = "disallowed combinations!";
+                result = DISALLOWED_COMBINATION;
             } else {
                 result = CombineAwalan(prefix, root) + sufix;
             }

@@ -3,7 +3,7 @@
 This utility is a collection of methods for transforming a root word into an affix-word in Bahasa Indonesia. I created this utility to help me in the process of building SIBI (Sign System for Bahasa Indonesia) Translation Apps. The main goal of the apps is to **translate a sentence from Text Input to SIBI Gestures Animation**, which currently in the works at the Faculty of Computer Science Universitas Indonesia.
 
 
-This utility is part of the text-parser module for SIBI Gestures Generation. Currently, this utility is made in C# language because the SIBI Gestures Generation Apps built using Unity. In the future, I have a plan to migrate this utility to becoming an API.
+The initial purpose of this utility is for data-collection automation only. Hopefully, by open-sourcing this utility, it will grow into something more with help from other researchers related to Indonesian Language and Text Processing who wants to contribute. Currently, this utility is made in C# language because the SIBI Gestures Generation Apps built using Unity. In the future, I have a plan to migrate this utility to becoming an API.
 
 ## Status
 **Incomplete [ON-GOING]**
@@ -17,7 +17,7 @@ as cited from [(Adriani et.al., 2007)](https://www.researchgate.net/profile/Jeli
 
 Contributors are open :)
 
-## Prequisites
+## Minimum Prequisites
 ```
 .NET Core SDK v2.2.301
 ```
@@ -44,7 +44,14 @@ using AffixWordUtilities;
 namespace Example {
     class Program {
         static void Main(string[] args) {
+            //Prefix Only
             Console.WriteLine(Word.CombineAwalan("me", "baca"));
+            
+            //Suffix Only
+            Console.WriteLine(Word.CombineAwalan("makan", "an"));
+
+            // Prefix + Suffix
+            Console.WriteLine(Word.CombineAwalanAkhiran("me", "nama", "i"));
         }
     }
 }
@@ -52,6 +59,8 @@ namespace Example {
 **Output**
 ```
 membaca
+makanan
+menamai
 ```
 
 ## Built With

@@ -5,10 +5,10 @@ using System.Text.RegularExpressions;
 namespace AffixWordUtilities {
     static class Word {
 
-        private static string[] prefix = {"ber", "di", "ke", "me", "pe", "se", "ter"};
-        private static string[] sufix = {"an", "i", "kan", "lah", "wan", "wati"};
-        private static string[] partikel = {"kah", "lah", "pun"};
-        private static string[] kepunyaan = {"ku", "mu", "nya"};
+        private static string[] prefix      = {"ber", "di", "ke", "me", "pe", "se", "ter"};
+        private static string[] sufix       = {"an", "i", "kan", "lah", "wan", "wati"};
+        private static string[] partikel    = {"kah", "lah", "pun"};
+        private static string[] kepunyaan   = {"ku", "mu", "nya"};
 
         private const string DISALLOWED_COMBINATION = "disallowed combination!";
         
@@ -63,44 +63,129 @@ namespace AffixWordUtilities {
             if (prefix == "me" && root.Length <= 3) {
                 prefix = prefix + "nge";
             } else if (prefix == "me" && root[0] == 's') {
-                if (root[1] == 'a' || root[1] == 'i' || root[1] == 'u' || root[1] == 'e' || root[1] == 'o') {
+                if (root[1] == 'a' || 
+                    root[1] == 'i' || 
+                    root[1] == 'u' || 
+                    root[1] == 'e' || 
+                    root[1] == 'o') {
+                    
                     prefix = prefix + "ny";
                     root = root.Remove(0, 1);
                 } else {
                     prefix = prefix + "n";
                 }
-            } else if (prefix == "me" && (root[0] == 'b' || root[0] == 'f' || root[0] == 'p' || root[0] == 'v') ) {
-                prefix = prefix + "m";
-                if (root[0] == 'p' && root != "punya" && ((root[1] == 'a' || root[1] == 'i' || root[1] == 'u' || root[1] == 'e' || root[1] == 'o')))
-                    root = root.Remove(0, 1);
-            } else if (prefix == "me" && (root[0] == 'c' || root[0] == 'd' || root[0] == 'j' || root[0] == 't' || root[0] == 'z') ) {
-                prefix = prefix + "n";
-                if (root[0] == 't' && (root[1] == 'a' || root[1] == 'i' || root[1] == 'u' || root[1] == 'e' || root[1] == 'o'))
-                    root = root.Remove(0, 1);
-            } else if (prefix == "me" && (root[0] == 'a' || root[0] == 'e' || root[0] == 'g' || root[0] == 'h' || root[0] == 'k' || (root[0] == 'k' && root[1] == 'h') || root[0] == 'o' || root[0] == 'q' || root[0] == 'u' || root[0] == 'x') ) {
-                prefix = prefix + "ng";
-                if (root[0] == 'k' && root[1] != 'h' && root != "kaji" && (root[1] == 'a' || root[1] == 'i' || root[1] == 'u' || root[1] == 'e' || root[1] == 'o'))
-                    root = root.Remove(0, 1);
+            } else if (prefix == "me" && (
+                root[0] == 'b' || 
+                root[0] == 'f' || 
+                root[0] == 'p' || 
+                root[0] == 'v') ) {
                 
+                prefix = prefix + "m";
+
+                if (root[0] == 'p' && root != "punya" && ((
+                    root[1] == 'a' || 
+                    root[1] == 'i' || 
+                    root[1] == 'u' || 
+                    root[1] == 'e' || 
+                    root[1] == 'o'))) {
+
+                    root = root.Remove(0, 1);
+                }
+            } else if (prefix == "me" && (
+                root[0] == 'c' || 
+                root[0] == 'd' || 
+                root[0] == 'j' || 
+                root[0] == 't' || 
+                root[0] == 'z') ) {
+                
+                prefix = prefix + "n";
+                
+                if (root[0] == 't' && (
+                    root[1] == 'a' || 
+                    root[1] == 'i' || 
+                    root[1] == 'u' || 
+                    root[1] == 'e' || 
+                    root[1] == 'o')) {
+
+                    root = root.Remove(0, 1);
+                }
+            } else if (prefix == "me" && (
+                root[0] == 'a' || 
+                root[0] == 'e' || 
+                root[0] == 'g' || 
+                root[0] == 'h' || 
+                root[0] == 'k' || 
+                (root[0] == 'k' && root[1] == 'h') || 
+                root[0] == 'o' || 
+                root[0] == 'q' || 
+                root[0] == 'u' || 
+                root[0] == 'x') ) {
+                
+                prefix = prefix + "ng";
+                
+                if (root[0] == 'k' && root[1] != 'h' && root != "kaji" && (
+                    root[1] == 'a' || 
+                    root[1] == 'i' || 
+                    root[1] == 'u' || 
+                    root[1] == 'e' || 
+                    root[1] == 'o')) {
+                    
+                    root = root.Remove(0, 1);
+                }
             }
             #endregion
 
             #region Rules 2 = pe(N)-
             else if (prefix == "pe" && root[0] == 's') { //peny-
-                if (root[1] == 'a' || root[1] == 'i' || root[1] == 'u' || root[1] == 'e' || root[1] == 'o') {
+                if (root[1] == 'a' || 
+                    root[1] == 'i' || 
+                    root[1] == 'u' || 
+                    root[1] == 'e' || 
+                    root[1] == 'o') {
+                    
                     prefix = prefix + "ny";
                     root = root.Remove(0, 1);
                 } else {
                     prefix = prefix + "n";
                 }
-            } else if (prefix == "pe" && (root[0] == 'a' || root[0] == 'e' || root[0] == 'l' || root[0] == 'o' || root[0] == 'u' || root[0] == 'g' || root[0] == 'h' || root[0] == 'k') ) { //peng-
+            } else if (prefix == "pe" && (
+                root[0] == 'a' || 
+                root[0] == 'e' || 
+                root[0] == 'l' || 
+                root[0] == 'o' || 
+                root[0] == 'u' || 
+                root[0] == 'g' || 
+                root[0] == 'h' || 
+                root[0] == 'k') ) { //peng-
+                
                 prefix = prefix + "ng";
-                if (root[0] == 'k' && root[1] != 'h' && root != "kaji" && (root[1] == 'a' || root[1] == 'i' || root[1] == 'u' || root[1] == 'e' || root[1] == 'o'))
+                
+                if (root[0] == 'k' && root[1] != 'h' && root != "kaji" && (
+                    root[1] == 'a' || 
+                    root[1] == 'i' || 
+                    root[1] == 'u' || 
+                    root[1] == 'e' || 
+                    root[1] == 'o')) {
+
                     root = root.Remove(0, 1);
-            } else if (prefix == "pe" && (root[0] == 'c' || root[0] == 'd' || root[0] == 'j' || root[0] == 't') ) { //pen-
+                }
+            } else if (prefix == "pe" && (
+                root[0] == 'c' || 
+                root[0] == 'd' || 
+                root[0] == 'j' || 
+                root[0] == 't') ) { //pen-
+
                 prefix = prefix + "n";
-                if (root[0] == 't' && (root[1] == 'a' || root[1] == 'i' || root[1] == 'u' || root[1] == 'e' || root[1] == 'o'))
+                
+                if (root[0] == 't' && (
+                    root[1] == 'a' || 
+                    root[1] == 'i' || 
+                    root[1] == 'u' || 
+                    root[1] == 'e' || 
+                    root[1] == 'o')) {
+                    
                     root = root.Remove(0, 1);
+                }
             } else if (prefix == "pe" && (root[0] == 'b' || root[0] == 'f' || root[0] == 'p') ) { //pem-
                 prefix = prefix + "m";
                 if (root[0] == 'p')
@@ -159,10 +244,10 @@ namespace AffixWordUtilities {
         ///
         /// </summary>
         /// <returns>
-        ///     kata yang telah ditambahkan akhiran
+        ///     kata yang telah ditambahkan awalan dan akhiran
         /// </returns>
         /// <example>
-        ///     "nama" + "kan" = "namakan"
+        ///     "me" + "nama" + "kan" = "menamakan"
         /// </example>
         public static string CombineAwalanAkhiran(string prefix, string root, string sufix) {
             string result = "";

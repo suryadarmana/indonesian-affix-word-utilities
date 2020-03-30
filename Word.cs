@@ -252,6 +252,9 @@ namespace AffixWordUtilities {
             #region Rules 3 = per
             else if (prefix == "per") {
                 prefix = "per";
+                if (root[0] == 'r') {
+                    root = root.Remove(0, 1);
+                }
             }
             #endregion
 

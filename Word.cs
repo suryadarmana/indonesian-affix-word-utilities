@@ -360,6 +360,22 @@ namespace AffixWordUtilities {
             return result;
         }
 
+        /// <summary>
+        ///     Menambahkan beberapa imbuhan awalan dan akhiran pada sebuah kata dasar
+        ///     <param name="prefix">beberapa awalan yang ingin ditambahkan</param>
+        ///     <param name="root">kata dasar</param>
+        ///     <param name="sufix">beberapa akhiran yang ingin ditambahkan</param>
+        ///     
+        ///     Disallowed Prefix - Suffix Combination
+        ///     be-i, di-an, ke-i, ke-kan, me-an, se-i, se-kan, te-an
+        ///
+        /// </summary>
+        /// <returns>
+        ///     kata yang telah ditambahkan awalan dan akhiran
+        /// </returns>
+        /// <example>
+        ///     ["me", "per"] + "masalah" + ["kan"] = "mempermasalahkan"
+        /// </example>
         public static string CombineAwalanAkhiran(string[] prefix, string root, string[] suffix) {
             string result = "";
             if ((prefix.First() == "ber" && sufix.Last() == "i") ||

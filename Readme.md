@@ -63,6 +63,50 @@ makanan
 menamai
 ```
 
+## [** UPDATE 30/03/2020 **]
+Now you can combine multiple prefixes and suffixes (not all words are tested yet)
+
+```csharp
+CombineAwalan(string[] prefix, string root) 
+//return string
+
+CombineAkhiran(string[] sufix, string root) 
+//return string
+
+CombineAwalanAkhiran(string[] prefix, string root, string[] sufix) 
+//return string
+```
+
+## Examples
+Retrieve prefix(es) + root-word + affix(es)
+```csharp
+using AffixWordUtilities;
+
+namespace Example {
+    class Program {
+        static void Main(string[] args) {
+            // Prefix + Suffix #1
+            string[] prefixes1 = {"me", "per"};
+            string[] affixes1 = {"kan"};
+            string root1 = "tanya";
+
+            // Prefix + Suffix #2
+            string[] prefixes2 = {"me", "ke"};
+            string[] affixes2 = {"i"};
+            string root2 = "tahu";
+
+            Console.WriteLine(Word.CombineAwalanAkhiran(prefixes1, root1, affixes1));
+            Console.WriteLine(Word.CombineAwalanAkhiran(prefixes2, root2, affixes2));
+        }
+    }
+}
+```
+**Output**
+```
+mempertanyakan
+mengetahui
+```
+
 ## Built With
 
 * **Language:** *C#*

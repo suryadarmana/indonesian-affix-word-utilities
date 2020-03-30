@@ -3,12 +3,66 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace AffixWordUtilities {
+    /*
+    
+    Basic Rules from [Sobariah, 2016] : 
+    https://play.google.com/store/books/details?id=fVRxCwAAQBAJ&pcampaignid=books_web_aboutlink
+
+    --------------------------------------------------------
+    awalan:     vokal/konsonan:    bentuk:        peluruhan:
+    --------------------------------------------------------
+    se          [*]                se             false
+    me          [a,i,u,e,o]        meng           false
+    me          [b]                mem            false
+    me          [c,d,j]            men            false
+    me          [g,h]              meng           false
+    me          [k]                meng           true
+    me          [p]                mem            true
+    me          [s]                meny           true
+    me          [t]                men            true
+    me          [l,m,n,r,w]        me             false
+    ke          [*]                ke             false
+    di          [*]                di             false
+    ber         [~r]               ber            false
+    ber         [r]                ber            true
+    ber         [*|er|*]           be             false
+    ber         [ajar]             bel            false
+    ter         [~r]               ber            false
+    ter         [r]                ter            true
+    pe          [a,i,u,e,o]        peng           false
+    pe          [g,h]              peng           false
+    pe          [k,h,~kh]          peng           true
+    pe          [kh]               peng           false
+    pe          [j,d,c]            pen            false
+    pe          [t]                pen            true
+    pe          [b,f]              pem            false
+    pe          [p]                pem            true
+    pe          [s]                peny           true
+    pe          [l,m,n,r,y,z]      pe             false
+    per         [*]                per            false
+
+    ---------------------------------------------------------
+    akhiran:     vokal/konsonan:    bentuk:        peluruhan:
+    ---------------------------------------------------------
+    -kan         [*]                -kan           false
+    -an          [*]                -an            false
+    -i           [*]                -i             false
+    -wan         [a]                -wan           false
+    -wan         [ah]               -wan           true
+    -wati        [a]                -wati          false
+    -wati        [ah]               -wati          true
+    -man         [i]                -man           false
+    -is          [*]                -is            false
+    -isme        [*]                -isme          false
+
+    */
+    
     static class Word {
 
-        private static string[] prefix      = {"ber", "di", "ke", "me", "pe", "se", "ter"};
-        private static string[] sufix       = {"an", "i", "kan", "lah", "wan", "wati"};
-        private static string[] partikel    = {"kah", "lah", "pun"};
-        private static string[] kepunyaan   = {"ku", "mu", "nya"};
+        private static string[] prefix      = { "se", "me", "ke", "di", "ber", "ter", "pe", "per" };
+        private static string[] sufix       = { "kan","an", "i", "wan", "wati", "man", "is", "isme" };
+        private static string[] partikel    = { "kah", "lah", "pun" };
+        private static string[] kepunyaan   = { "ku", "mu", "nya" };
 
         private const string DISALLOWED_COMBINATION = "disallowed combination!";
         
@@ -151,7 +205,7 @@ namespace AffixWordUtilities {
             } else if (prefix == "pe" && (
                 root[0] == 'a' || 
                 root[0] == 'e' || 
-                root[0] == 'l' || 
+                root[0] == 'i' || 
                 root[0] == 'o' || 
                 root[0] == 'u' || 
                 root[0] == 'g' || 
@@ -214,6 +268,18 @@ namespace AffixWordUtilities {
         }
 
         //TODO: Combine Multi Awalan
+        public static string CombineAwalan(string[] prefix, string root) {
+            string result = "";
+            for (int i = 0; i < prefix.Length; i++) {
+                if (i == prefix.Length - 1) {
+                    result += CombineAwalan(prefix[i], root);
+                } else { 
+                    result += CombineAwalan(prefix[i], prefix[i+1]);
+                }
+            }
+            
+            return result;
+        }
 
         /// <summary>
         ///     Menambahkan imbuhan akhiran pada sebuah kata dasar
@@ -231,7 +297,25 @@ namespace AffixWordUtilities {
             return result;
         }
 
-        // TODO: Combine Multi Akhiran
+        /// <summary>
+        ///     Menambahkan beberapa imbuhan akhiran pada sebuah kata dasar
+        ///     <param name="sufix">kumpulan akhiran yang ingin ditambahkan</param>
+        ///     <param name="root">kata dasar</param>
+        /// </summary>
+        /// <returns>
+        ///     kata yang telah ditambahkan beberapa akhiran
+        /// </returns>
+        /// <example>
+        ///     "nama" + ["kan", "lah"]  = "namakanlah"
+        /// </example>
+        public static string CombineAkhiran(string[] sufix, string root) {
+            string sufixes = "";
+            foreach (var akhiran in sufix) {
+                sufixes += akhiran;
+            }
+            string result = root + sufixes;
+            return result;
+        }
 
         /// <summary>
         ///     Menambahkan imbuhan awalan dan akhiran pada sebuah kata dasar

@@ -27,7 +27,7 @@ namespace AffixWordUtilities {
     ber         [r]                ber            true
     ber         [*|er|*]           be             false
     ber         [ajar]             bel            false
-    ter         [~r]               ber            false
+    ter         [~r]               ter            false
     ter         [r]                ter            true
     pe          [a,i,u,e,o]        peng           false
     pe          [g,h]              peng           false
@@ -65,6 +65,8 @@ namespace AffixWordUtilities {
         private static string[] kepunyaan   = { "ku", "mu", "nya" };
 
         private const string DISALLOWED_COMBINATION = "disallowed combination!";
+
+        
         
         /// <summary>
         ///     Menghasilkan daftar seluruh kombinasi imbuhan dari sebuah kata dasar
@@ -136,7 +138,7 @@ namespace AffixWordUtilities {
                 
                 prefix = prefix + "m";
 
-                if (root[0] == 'p' && root != "punya" && ((
+                if (root[0] == 'p' && root != "punya" && (root[0] != 'p' && root[1] != 'e' && root[2] != 'r') && ((
                     root[1] == 'a' || 
                     root[1] == 'i' || 
                     root[1] == 'u' || 
@@ -204,10 +206,10 @@ namespace AffixWordUtilities {
                 }
             } else if (prefix == "pe" && (
                 root[0] == 'a' || 
-                root[0] == 'e' || 
                 root[0] == 'i' || 
-                root[0] == 'o' || 
                 root[0] == 'u' || 
+                root[0] == 'e' || 
+                root[0] == 'o' || 
                 root[0] == 'g' || 
                 root[0] == 'h' || 
                 root[0] == 'k') ) { //peng-
@@ -247,21 +249,29 @@ namespace AffixWordUtilities {
             }
             #endregion
 
-            #region Rules 3 = ber
-            else if (prefix == "ber" && root[0] == 'r') {
+            #region Rules 3 = per
+            else if (prefix == "per") {
+                prefix = "per";
+            }
+            #endregion
+
+            #region Rules 4 = ber
+            else if ((prefix == "ber" && root[0] == 'r') ||
+                     (prefix == "ber" && root[1] == 'e' && root[2] == 'r')) {
                 prefix = "be";
             } else if (prefix == "ber" && root == "ajar") {
                 prefix = "bel";
             }
             #endregion
 
-            #region Rules 4 = ter
+            #region Rules 5 = ter
             else if (prefix == "ter" && root[0] == 'r') {
                 prefix = "te";
             }
             #endregion
             
-            //TODO: ADD THE OTHER RULES FOR PREFIX
+            // the remaining prefix not included in rules because
+            // it doesn't have any special case 
 
             string result = prefix + root;
             return result;
@@ -270,11 +280,11 @@ namespace AffixWordUtilities {
         //TODO: Combine Multi Awalan
         public static string CombineAwalan(string[] prefix, string root) {
             string result = "";
-            for (int i = 0; i < prefix.Length; i++) {
-                if (i == prefix.Length - 1) {
-                    result += CombineAwalan(prefix[i], root);
-                } else { 
-                    result += CombineAwalan(prefix[i], prefix[i+1]);
+            for (int i = prefix.Length-1; i >= 0; i--) {
+                if (i != prefix.Length-1) {
+                    result = CombineAwalan(prefix[i], result);
+                } else {
+                    result = CombineAwalan(prefix[i], root);
                 }
             }
             
@@ -347,6 +357,27 @@ namespace AffixWordUtilities {
             } else {
                 result = CombineAwalan(prefix, root) + sufix;
             }
+            return result;
+        }
+
+        public static string CombineAwalanAkhiran(string[] prefix, string root, string[] suffix) {
+            string result = "";
+            if ((prefix.First() == "ber" && sufix.Last() == "i") ||
+                (prefix.First() == "di" && sufix.Last() == "an") ||
+                (prefix.First() == "ke" && sufix.Last() == "i") ||
+                (prefix.First() == "ke" && sufix.Last() == "kan") ||
+                (prefix.First() == "me" && sufix.Last() == "an") ||
+                (prefix.First() == "se" && sufix.Last() == "i") || 
+                (prefix.First() == "se" && sufix.Last() == "kan") ||
+                (prefix.First() == "ter" && sufix.Last() == "an")) {
+                result = DISALLOWED_COMBINATION;
+            } else {
+                string suffixes = "";
+                foreach(var akhiran in suffix) {
+                    suffixes += akhiran;
+                }
+                result = CombineAwalan(prefix, root) + suffixes;
+            }     
             return result;
         }
     }

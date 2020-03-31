@@ -77,7 +77,13 @@ namespace AffixWordUtilities {
         /// </example>      
         public static string CombineAwalan(string prefix, string root) {
             #region Rules 1 = me(N)-
-            if (prefix == "me" && root.Length <= 3) {
+            if (prefix == "me" && root.Length <= 3 && 
+                root[0] != 'a' &&
+                root[0] != 'i' &&
+                root[0] != 'u' &&
+                root[0] != 'e' &&
+                root[0] != 'o' &&
+                root[0] != 'h') {
                 prefix = prefix + "nge";
             } else if (prefix == "me" && root[0] == 's') {
                 if (root[1] == 'a' || 

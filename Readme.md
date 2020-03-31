@@ -24,9 +24,6 @@ Contributors are open :)
 
 ## List of Methods
 ```csharp
-TransformRoot(string root) 
-//return List<string>
-
 CombineAwalan(string prefix, string root) 
 //return string
 

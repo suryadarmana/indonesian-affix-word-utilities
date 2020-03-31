@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace AffixWordUtilities {
     /*
@@ -59,49 +58,11 @@ namespace AffixWordUtilities {
     
     static class Word {
 
-        private static string[] prefix      = { "se", "me", "ke", "di", "ber", "ter", "pe", "per" };
-        private static string[] sufix       = { "kan","an", "i", "wan", "wati", "man", "is", "isme" };
-        private static string[] partikel    = { "kah", "lah", "pun" };
-        private static string[] kepunyaan   = { "ku", "mu", "nya" };
-
+        public static string[] prefix      = { "se", "me", "ke", "di", "ber", "ter", "pe", "per" };
+        public static string[] sufix       = { "kan","an", "i", "wan", "wati", "man", "is", "isme" };
+        public static string[] partikel    = { "kah", "lah", "pun" };
+        public static string[] kepunyaan   = { "ku", "mu", "nya" };
         private const string DISALLOWED_COMBINATION = "disallowed combination!";
-
-        
-        
-        /// <summary>
-        ///     Menghasilkan daftar seluruh kombinasi imbuhan dari sebuah kata dasar
-        ///     <param name="root"> kata dasar </param>
-        /// </summary>
-        /// <returns>
-        ///     daftar seluruh kombinasi imbuhan dari sebuah kata dasar dalam bentuk List of String
-        /// </returns>
-        public static List<string> TransformRoot(string root) {
-            List<string> combined = new List<string>();
-            
-            for (int i = 0; i < prefix.Length; i++) {
-                combined.Add( CombineAwalan(prefix[i], root) );
-            }
-
-            for (int i = 0; i < sufix.Length; i++) {
-                combined.Add( CombineAkhiran(sufix[i], root) );
-            }
-
-            for (int i = 0; i < prefix.Length; i++) {
-                for (int j = 0; j < sufix.Length; j++) {
-                    string tempComb = CombineAwalanAkhiran(prefix[i], root, sufix[j]);
-                    if (tempComb != DISALLOWED_COMBINATION) {
-                        combined.Add( tempComb );
-                        /*
-                        for (int k = 0; k < partikel.Length; k++) {
-                            combined.Add( CombineAkhiran(partikel[k], tempComb) );
-                        }
-                        */
-                    }
-                }
-            }
-            
-            return combined;
-        }
 
         /// <summary>
         ///     Menambahkan imbuhan awalan pada sebuah kata dasar

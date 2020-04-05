@@ -250,14 +250,17 @@ namespace AffixWordUtilities {
         //TODO: Combine Multi Awalan
         public static string CombineAwalan(string[] prefix, string root) {
             string result = "";
-            for (int i = prefix.Length-1; i >= 0; i--) {
-                if (i != prefix.Length-1) {
-                    result = CombineAwalan(prefix[i], result);
-                } else {
-                    result = CombineAwalan(prefix[i], root);
+            if (prefix.Length == 0) {
+                result = root;
+            } else {
+                for (int i = prefix.Length-1; i >= 0; i--) {
+                    if (i != prefix.Length-1) {
+                        result = CombineAwalan(prefix[i], result);
+                    } else {
+                        result = CombineAwalan(prefix[i], root);
+                    }
                 }
             }
-            
             return result;
         }
 
@@ -348,14 +351,14 @@ namespace AffixWordUtilities {
         /// </example>
         public static string CombineAwalanAkhiran(string[] prefix, string root, string[] suffix) {
             string result = "";
-            if ((prefix.First() == "ber" && sufix.Last() == "i") ||
-                (prefix.First() == "di" && sufix.Last() == "an") ||
-                (prefix.First() == "ke" && sufix.Last() == "i") ||
-                (prefix.First() == "ke" && sufix.Last() == "kan") ||
-                (prefix.First() == "me" && sufix.Last() == "an") ||
-                (prefix.First() == "se" && sufix.Last() == "i") || 
-                (prefix.First() == "se" && sufix.Last() == "kan") ||
-                (prefix.First() == "ter" && sufix.Last() == "an")) {
+            if ((prefix.FirstOrDefault() == "ber" && sufix.Last() == "i") ||
+                (prefix.FirstOrDefault() == "di" && sufix.Last() == "an") ||
+                (prefix.FirstOrDefault() == "ke" && sufix.Last() == "i") ||
+                (prefix.FirstOrDefault() == "ke" && sufix.Last() == "kan") ||
+                (prefix.FirstOrDefault() == "me" && sufix.Last() == "an") ||
+                (prefix.FirstOrDefault() == "se" && sufix.Last() == "i") || 
+                (prefix.FirstOrDefault() == "se" && sufix.Last() == "kan") ||
+                (prefix.FirstOrDefault() == "ter" && sufix.Last() == "an")) {
                 result = DISALLOWED_COMBINATION;
             } else {
                 string suffixes = "";
